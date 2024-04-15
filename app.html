@@ -1,29 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
+var uid = 1;
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
 
- </head>
-
-<body>
-
-    <div ng-app="myapp">
-        <div ng-controller="welcome">
-            <h3>Greetings : {{mytitle.sayWelcome}}</h3>
-            <p>{{city}}</p>
-        </div>
-
-        <div>
+function ContactController($scope) {
+    
+    $scope.contacts = [];
+    
+    $scope.saveContact = function() {
+        
+        if($scope.newcontact.id == null) {
+             $scope.newcontact.id = uid++;
+             $scope.contacts.push($scope.newcontact);
+        } else {
             
-        </div>
-    </div>
-
-
-    <script src="myjs.js"></script>
-</body>
-
-</html>
+             for(i in $scope.contacts) {
+                    if($scope.contacts[i].id == $scope.newcontact.id) {
+                        $scope.contacts[i] = $scope.newcontact;
+                    }
+             }                
+        }
+        $scope.newcontact = {};
+    }
