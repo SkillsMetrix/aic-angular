@@ -28,8 +28,8 @@ function ContactController($scope) {
 <!doctype html>
 <html lang="en">
  <head>
-     <script src="angular.js"></script>
-	 	<script src="app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
+    <script src="crud.js"></script>
 
  </head>
  <body>
@@ -61,8 +61,8 @@ function ContactController($scope) {
     <td>{{ contact.email }}</td>
     <td>{{ contact.phone }}</td>
     <td>
-        <a  href="#" ng-click="edit(contact.id)">edit</a> | 
-        <a href="#" ng-click="delete(contact.id)">delete</a>
+        <a  href="#">edit</a> | 
+        <a href="#">delete</a>
     </td>
  </tr>
 </tbody>
