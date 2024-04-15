@@ -1,88 +1,42 @@
-var uid = 1;
 
+var app= angular.module('app',[])
 
-function ContactController($scope) {
-    
-    $scope.contacts = [];
-    
-    $scope.saveContact = function() {
-        
-        if($scope.newcontact.id == null) {
-             $scope.newcontact.id = uid++;
-             $scope.contacts.push($scope.newcontact);
-        } else {
-            
-             for(i in $scope.contacts) {
-                    if($scope.contacts[i].id == $scope.newcontact.id) {
-                        $scope.contacts[i] = $scope.newcontact;
-                    }
-             }                
-        }
-        $scope.newcontact = {};
+app.service('MathService',function(){
+
+    this.add=function(a,b){
+        return a+b
     }
-    $scope.delete=function(uid){
-      for(i in $scope.contacts){
-        if($scope.contacts[i].id == uid){
-          $scope.contacts.splice(i,1)
-           
-        }
-      }
+})
+app.controller('MathController',function($scope,MathService){
+
+    $scope.addition=function(a,b){
+        $scope.result= MathService.add($scope.a,$scope.b)
     }
-  
-  
-  
-  }
+})
 
 
+---
 
-  ------
 
-
-  <!doctype html>
+<!doctype html>
 <html lang="en">
- <head>
+
+<head>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
-    <script src="crud.js"></script>
+    <script src="app.js"></script>
 
- </head>
- <body>
-  <div ng-app="" ng-controller="ContactController">
-    <form class="well">
-    <label>Name</label> 
-        <input type="text" name="name" ng-model="newcontact.name"/>
-    <label>Email</label> 
-        <input type="email" name="email" ng-model="newcontact.email"/>
-    <label>Phone</label> 
-        <input type="text" name="phone" ng-model="newcontact.phone" required/>
-        <br/>
-		
-        <input type="hidden" ng-model="newcontact.id" />
-     <input type="button" value="Save" ng-click="saveContact()" class="btn btn-primary"/>
-    </form>
-<table class="table table-striped table-bordered">
-<thead> 
-<tr>
-    <th>ID</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Phone</th>
-    <th>Action</th>
-</tr>
-</thead>
-<tbody>
-<tr ng-repeat="contact in contacts">
-    <td>{{contact.id}}</td>
-    <td>{{ contact.name }}</td> 
-    <td>{{ contact.email }}</td>
-    <td>{{ contact.phone }}</td>
-    <td>
-        <a  href="#" ng-click="edit(contact.id)">edit</a> | 
-        <a href="#" ng-click="delete(contact.id)">delete</a>
-    </td>
- </tr>
-</tbody>
-</table>    
+</head>
+
+<body ng-app="app">
+<div ng-controller='MathController'>
+
+    Input A:<input type='number' ng-model="a"/>
+    Input B:<input type='number' ng-model="b"/>
+    <hr>
+    result: {{result}}
+
+    <button ng-click="addition()">Add</button>
 </div>
+</body>
 
- </body>
 </html>
