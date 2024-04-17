@@ -7,29 +7,51 @@ module.service('ContactService', function () {
     this.loadUsers = function () {
         return contacts
     }
-// logic to save the data
+    // logic to save the data
     this.save = function (contact) {
 
-      if (contact.id == null) {
-          contact.id = uid ++;
-          contacts.push(contact);
-      } else {
+        if (contact.id == null) {
+            contact.id = uid++;
+            contacts.push(contact);
+        } else {
 
-          for (i in contacts) {
-              if (contacts[i].id == contact.id) {
-                 contacts[i] = contact
-              }
-          }
-      } 
-  }
+            for (i in contacts) {
+                if (contacts[i].id == contact.id) {
+                    contacts[i] = contact
+                }
+            }
+        }
+    }
+    this.findUser = function (id) {
+        for (i in contacts) {
+            if (contacts[i].id == id) {
+                return contacts[i]
+            }
+        }
+    }
+    // delete
+    this.delete = function (uid) {
+        for (i in contacts) {
+            if (contacts[i].id == uid) {
+                contacts.splice(i, 1)
 
+            }
+        }
+    }
 
 })
 module.controller('ContactController', function ($scope, ContactService) {
     $scope.contacts = ContactService.loadUsers()
-    $scope.saveContact=function(){
-      ContactService.save($scope.newcontact)
-     
-      
+    $scope.saveContact = function () {
+        ContactService.save($scope.newcontact)
+    }
+    $scope.delete = function (id) {
+        ContactService.delete(id)
+    }
+
+    $scope.edit = function (uid) {
+        $scope.newcontact = angular.copy(ContactService.findUser(uid))
+
+
     }
 })
