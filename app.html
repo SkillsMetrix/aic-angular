@@ -1,45 +1,35 @@
+var module = angular.module('app', [])
 
-var app= angular.module('app',[])
+module.service('ContactService', function () {
+    var uid = 1;
+    var contacts = []
+    // logic to show the data
+    this.loadUsers = function () {
+        return contacts
+    }
+// logic to save the data
+    this.save = function (contact) {
 
-app.service('MathService',function(){
+      if (contact.id == null) {
+          contact.id = uid ++;
+          contacts.push(contact);
+      } else {
 
-    this.add=function(a,b){
-        return a+b
+          for (i in contacts) {
+              if (contacts[i].id == contact.id) {
+                 contacts[i] = contact
+              }
+          }
+      } 
+  }
+
+
+})
+module.controller('ContactController', function ($scope, ContactService) {
+    $scope.contacts = ContactService.loadUsers()
+    $scope.saveContact=function(){
+      ContactService.save($scope.newcontact)
+     
+      
     }
 })
-app.service('coreservice',function(MathService){
-    this.calculateAddition=function(a,b){
-     return MathService.add(a,b)
-    }
-})
-app.controller('MathController',function($scope,coreservice){
-
-    $scope.addition=function(a,b){
-        $scope.result= coreservice.calculateAddition($scope.a,$scope.b)
-    }
-})
-
-
-----
-<!doctype html>
-<html lang="en">
-
-<head>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.5/angular.min.js"></script>
-    <script src="app.js"></script>
-
-</head>
-
-<body ng-app="app">
-<div ng-controller='MathController'>
-
-    Input A:<input type='number' ng-model="a"/>
-    Input B:<input type='number' ng-model="b"/>
-    <hr>
-    result: {{result}}
-
-    <button ng-click="addition()">Add</button>
-</div>
-</body>
-
-</html>
