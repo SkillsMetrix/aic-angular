@@ -7,17 +7,20 @@ app.service('MathService',function(){
         return a+b
     }
 })
-app.controller('MathController',function($scope,MathService){
+app.service('coreservice',function(MathService){
+    this.calculateAddition=function(a,b){
+     return MathService.add(a,b)
+    }
+})
+app.controller('MathController',function($scope,coreservice){
 
     $scope.addition=function(a,b){
-        $scope.result= MathService.add($scope.a,$scope.b)
+        $scope.result= coreservice.calculateAddition($scope.a,$scope.b)
     }
 })
 
 
----
-
-
+----
 <!doctype html>
 <html lang="en">
 
