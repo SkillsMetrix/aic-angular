@@ -1,0 +1,38 @@
+angular.module('myApp').controller('contactController', [
+    '$scope', 'ContactService', function ($scope, ContactService) {
+
+
+        $scope.users = ContactService.list()
+    }
+])
+
+
+
+angular.module('myApp').service('ContactService', function () {
+    users = [
+        {
+            id: 0,
+            'username': 'shivam',
+            'dob': '4/8/16',
+            'income': 98768,
+            'email': 'shivam@mail.com'
+        }, {
+            id: 1,
+            'username': 'shweta',
+            'dob': '4/8/15',
+            'income': 3456,
+            'email': 'shweta@mail.com'
+        }
+    ]
+    this.list = function () {
+        return users
+    }
+})
+
+
+
+
+
+
+
+var App= angular.module('myApp',['ngResource'])
