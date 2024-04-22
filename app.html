@@ -10,6 +10,12 @@
         .username.ng-dirty.ng-invalid-required{
             background-color: red;
         }
+        .username.ng-valid{
+            background-color: lightgreen;
+        }
+        .username.ng-dirty.ng-invalid-required{
+            background-color: red;
+        }
     </style>
     
      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -27,12 +33,13 @@
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="uname">Name</label>
                               <div class="col-md-7">
-                                  <input type="text" class="username form-control input-sm" id="uname" ng-model="user.username"
+                                  <input type="text" class="username form-control input-sm" id="uname" name="uname" ng-model="user.username"
                                   placeholder="Enter Your name" required ng-minlength="3"/>
 
                                   <div class="has-error" ng-show="myForm.$dirty">
                                    <span ng-show="myForm.uname.$error.required">This field is required</span>
                                    <span ng-show="myForm.uname.$error.minlength">Min Length required is 3</span>
+                                   <span ng-show="myForm.uname.$error.$invalid">invalid</span>
                                   </div>
                                 </div>
                           </div>
@@ -43,7 +50,13 @@
                           <div class="form-group col-md-12">
                               <label class="col-md-2 control-lable" for="address">Address</label>
                               <div class="col-md-7">
-                                  <input type="text" class="form-control input-sm" ng-model="user.address"/>
+                                  <input type="text" class="username form-control input-sm" ng-model="user.address" name="address" required  ng-minlength="6"/>
+
+                                     
+                                    <span ng-show="myForm.address.$touched && myForm.address.$error.required">This address is required</span>
+                                    <span ng-show="myForm.address.$touched && myForm.address.$error.minlength">This address must be 6 char long</span>
+                                  
+                                   
                               </div>
                           </div>
                       </div>
